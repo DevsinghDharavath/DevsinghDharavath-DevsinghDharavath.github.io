@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore Yourself</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .input-section {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px 15px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 12px 22px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      background: #ffdd57;
+      color: #333;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    .result {
+      margin-top: 20px;
+      background: rgba(0,0,0,0.25);
+      padding: 20px;
+      border-radius: 15px;
+      min-height: 80px;
+      animation: slideUp 0.5s ease;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .skills {
+      margin-top: 30px;
+    }
+
+    .skills h2 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+    }
+
+    .skill {
+      background: rgba(255,255,255,0.2);
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .skill:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.35);
+    }
+
+    footer {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🌟 Enter Your lovely Name 🌟</h1>
+
+    <div class="input-section">
+      <input type="text" id="nameInput" placeholder="Enter your name" />
+      <button onclick="showInfo()">Show</button>
+    </div>
+
+    <div class="result" id="result">
+      Your personalized message will appear here ✨
+    </div>
+
+    <div class="skills">
+      <h2>😌 How Are You Feeling Today?</h2>
+      <div class="skill-grid">
+        <div class="skill" onclick="showMood('tensed')">😰 Tensed</div>
+        <div class="skill" onclick="showMood('worried')">😟 Worried</div>
+        <div class="skill" onclick="showMood('sad')">😢 Sad</div>
+        <div class="skill" onclick="showMood('angry')">😡 Angry</div>
+        <div class="skill" onclick="showMood('confused')">🤔 Confused</div>
+        <div class="skill" onclick="showMood('lonely')">🥺 Lonely</div>
+        <div class="skill" onclick="showMood('unmotivated')">😴 Unmotivated</div>
+        <div class="skill" onclick="showMood('overthinking')">🧠 Overthinking</div>
+        <div class="skill" onclick="showMood('stressed')">📉 Stressed</div>
+        <div class="skill" onclick="showMood('fear')">😨 Fear</div>
+      </div>
+    </div>
+
+    <div class="result" id="moodResult" style="margin-top:20px; display:none;"></div>
+
+    <div class="skills">
+      <h2>🚀 Explore Skills & Learning</h2>
+      <div class="skill-grid">
+        <div class="skill" onclick="goTo('https://www.youtube.com/results?search_query=communication+skills')">💬 Communication</div>
+        <div class="skill" onclick="goTo('https://www.brainbashers.com/')">🧩 Puzzles</div>
+        <div class="skill" onclick="goTo('https://www.indiabix.com/aptitude/questions-and-answers/')">📊 Aptitude</div>
+        <div class="skill" onclick="goTo('https://leetcode.com/')">💻 Coding</div>
+      </div>
+    </div>
+
+    <div class="result" id="moodResult" style="margin-top:20px; display:none;"></div>
+
+    <footer>
+      Made with ❤️ by Devsingh for a positive experience
+    </footer>
+  </div>
+
+  <script>
+    const personalityByLetter = {
+    <!--you are inspecting right -->
+      A: "You are ambitious, confident, and a natural leader.",
+      B: "You are calm, balanced, and bring positivity to people around you.",
+      C: "You are creative, curious, and full of fresh ideas.",
+      D: "You are determined, disciplined, and goal-focused.",
+      E: "You are energetic, expressive, and great at communication.",
+      F: "You are focused, honest, and deeply thoughtful.",
+      G: "You are growth-oriented and always eager to learn.",
+      H: "You are kind-hearted, intelligent, and dependable.",
+      I: "You are innovative, independent, and smart.",
+      J: "You are joyful, confident, and inspiring.",
+      K: "You are knowledgeable, analytical, and practical.",
+      L: "You are logical, loyal, and learning-focused.",
+      M: "You are motivated, hardworking, and reliable.",
+      N: "You are nurturing, creative, and thoughtful.",
+      O: "You are original, observant, and unique.",
+      P: "You are patient, practical, and a great problem-solver.",
+      Q: "You are quick-minded and think differently.",
+      R: "You are responsible, strong, and result-oriented.",
+      S: "You are smart, sincere, and socially strong.",
+      T: "You are technical, talented, and trustworthy.",
+      U: "You are understanding and supportive.",
+      V: "You are visionary and value-driven.",
+      W: "You are wise, warm, and thoughtful.",
+      X: "You are rare, bold, and extraordinary.",
+      Y: "You are youthful, curious, and energetic.",
+      Z: "You are zealous, focused, and powerful."
+    };
+
+    const compliments = [
+      "You have a bright future ahead 🌟",
+      "People enjoy being around you 😊",
+      "You are doing better than you think 💪",
+      "Your efforts will surely pay off 🚀",
+      "You bring positive energy wherever you go ✨",
+      "Never underestimate your potential 🌈",
+      "You are capable of amazing things 🔥"
+    ];
+
+    function showInfo() {
+      const name = document.getElementById('nameInput').value.trim();
+      const result = document.getElementById('result');
+
+      if (name === '') {
+        result.innerHTML = '⚠️ Please enter your name.';
+        return;
+      }
+
+      const letter = name.charAt(0).toUpperCase();
+      const personality = personalityByLetter[letter] || "You are unique and full of potential.";
+      const compliment = compliments[Math.floor(Math.random() * compliments.length)];
+
+      result.innerHTML = `🌟 Hello <b>${name}</b>!<br><br>💬 ${personality}<br><br>💖 ${compliment}`;
+    }
+
+    const moodData = {
+      tensed: {
+        msg: "Take a deep breath 🌬️. Everything will be okay.",
+        video: "https://www.youtube.com/embed/odADwWzHR24"
+      },
+      worried: {
+        msg: "Worrying means you care. Let’s calm your mind 💙",
+        video: "https://www.youtube.com/embed/1vx8iUvfyCY"
+      },
+      sad: {
+        msg: "It’s okay to feel sad sometimes. You are not alone 💖",
+        video: "https://www.youtube.com/embed/2OEL4P1Rz04"
+      },
+      angry: {
+        msg: "Pause. Breathe. Let the anger melt away 🔥➡️💧",
+        video: "https://www.youtube.com/embed/MIr3RsUWrdo"
+      },
+      confused: {
+        msg: "Confusion is the first step toward clarity ✨",
+        video: "https://www.youtube.com/embed/5MgBikgcWnY"
+      },
+      lonely: {
+        msg: "You matter. You are seen and valued 🤍",
+        video: "https://www.youtube.com/embed/n3Xv_g3g-mA"
+      },
+      unmotivated: {
+        msg: "Small steps today lead to big success tomorrow 🚀",
+        video: "https://www.youtube.com/embed/ZXsQAXx_ao0"
+      },
+      overthinking: {
+        msg: "Slow down your thoughts. Peace starts now 🧘",
+        video: "https://www.youtube.com/embed/ycK3t3uKQ5I"
+      },
+      stressed: {
+        msg: "Release the stress. You’ve got this 💪",
+        video: "https://www.youtube.com/embed/z6X5oEIg6Ak"
+      },
+      fear: {
+        msg: "Courage begins with one brave step 🌈",
+        video: "https://www.youtube.com/embed/3sK3wJAxGfs"
+      }
+    };
+
+    function showMood(mood) {
+      const box = document.getElementById("moodResult");
+      const data = moodData[mood];
+
+      box.style.display = "block";
+      box.innerHTML = `
+        <h3>💖 We’re Here for You</h3>
+        <p style="margin:10px 0;">${data.msg}</p>
+        <iframe width="100%" height="250" src="${data.video}" 
+        title="YouTube video" frameborder="0" allowfullscreen></iframe>
+      `;
+    }
+
+    function goTo(url) {
+      window.open(url, '_blank');
+    }
+  </script>
+
+</body>
+</html>
